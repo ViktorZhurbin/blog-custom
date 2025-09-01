@@ -4,6 +4,7 @@ import mdx from "@mdx-js/rollup";
 import { visualizer } from "rollup-plugin-visualizer";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
+import { watchContent } from "./plugins/watch-content";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -14,6 +15,7 @@ export default defineConfig({
         remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
       }),
     },
+    watchContent(),
     react(),
     visualizer({
       filename: "dist/stats.html",
