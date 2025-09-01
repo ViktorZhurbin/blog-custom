@@ -2,6 +2,8 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import mdx from "@mdx-js/rollup";
 import { visualizer } from "rollup-plugin-visualizer";
+import remarkFrontmatter from "remark-frontmatter";
+import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -9,7 +11,7 @@ export default defineConfig({
     {
       enforce: "pre",
       ...mdx({
-        /* jsxImportSource: …, otherOptions… */
+        remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
       }),
     },
     react(),

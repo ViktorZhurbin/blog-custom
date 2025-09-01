@@ -38,9 +38,10 @@ export default function PostPage() {
           <h1>{post.title}</h1>
           <time>{post.date}</time>
           <div>
-            {post.tags.map((tag) => (
+            {post.tags.map((tag, index) => (
               <span key={tag} className="tag">
                 {tag}
+                {index < post.tags.length - 1 && ", "}
               </span>
             ))}
           </div>
