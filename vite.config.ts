@@ -4,18 +4,18 @@ import mdx from "@mdx-js/rollup";
 
 // https://vite.dev/config/
 export default defineConfig({
-	plugins: [
-		{
-			enforce: "pre",
-			...mdx({
-				/* jsxImportSource: …, otherOptions… */
-			}),
-		},
-		react(),
-	],
-	resolve: {
-		alias: {
-			"@": "/src",
-		},
-	},
+  plugins: [
+    {
+      enforce: "pre",
+      ...mdx({
+        /* jsxImportSource: …, otherOptions… */
+      }),
+    },
+    react(),
+  ],
+  resolve: {
+    alias: {
+      "@": "/src",
+    },
+  },
 });

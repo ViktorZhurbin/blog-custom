@@ -2,10 +2,7 @@
   {
     "title": "Hello World",
     "date": "2025-08-31",
-    "tags": [
-      "intro",
-      "meta"
-    ],
+    "tags": ["intro", "meta"],
     "slug": "hello-world",
     "filepath": "content/posts/hello-world.mdx"
   }
