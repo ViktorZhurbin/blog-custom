@@ -2,6 +2,7 @@ import { globby } from "globby";
 import matter from "gray-matter";
 import fs from "fs-extra";
 import path from "path";
+import { PATHS, PATTERNS } from "../src/constants.js";
 
 export interface Post {
   title: string;
@@ -12,7 +13,7 @@ export interface Post {
 }
 
 export async function getPosts(): Promise<Post[]> {
-  const files = await globby("content/posts/**/*.mdx");
+  const files = await globby(PATTERNS.MDX_FILES);
 
   const posts = files.map((file) => {
     const content = fs.readFileSync(file, "utf8");
@@ -35,10 +36,9 @@ export async function getPosts(): Promise<Post[]> {
 // Generate posts index for dev
 export async function generatePostsIndex() {
   const posts = await getPosts();
-  const indexPath = "src/generated/posts.json";
 
-  await fs.ensureDir("src/generated");
-  await fs.writeJSON(indexPath, posts, { spaces: 2 });
+  await fs.ensureDir(PATHS.GENERATED_DIR);
+  await fs.writeJSON(PATHS.POSTS_INDEX, posts, { spaces: 2 });
 }
 
 // Run if called directly
