@@ -6,5 +6,11 @@ export const PATHS = {
 } as const
 
 export const PATTERNS = {
-  MDX_FILES: 'content/posts/**/*.mdx'
+  MDX_FILES: 'content/posts/**/*.mdx',
+  MDX_FILES_REGEX: /content\/posts\/.*\.mdx$/
+} as const
+
+export const COLORS = {
+  PURPLE: '\x1b[35m',
+  RESET: '\x1b[0m'
 } as const
