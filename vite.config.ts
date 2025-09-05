@@ -44,7 +44,6 @@ export default defineConfig({
         manualChunks: {
           preact: ["preact"],
           "preact-iso": ["preact-iso"],
-          "preact-render-to-string": ["preact-render-to-string"],
         },
       },
     },
