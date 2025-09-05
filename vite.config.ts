@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import preact from "@preact/preset-vite";
 import mdx from "@mdx-js/rollup";
 import { visualizer } from "rollup-plugin-visualizer";
 import remarkFrontmatter from "remark-frontmatter";
@@ -12,14 +12,23 @@ export default defineConfig({
     {
       enforce: "pre",
       ...mdx({
+        jsxImportSource: "preact",
         remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
       }),
     },
     watchContent(),
-    react(),
+    preact({
+      prerender: {
+        enabled: true,
+        renderTarget: "#app",
+        additionalPrerenderRoutes: ["/404"],
+        previewMiddlewareEnabled: true,
+        previewMiddlewareFallback: "/404",
+      },
+    }),
     visualizer({
       filename: "dist/stats.html",
-      open: true,
+      open: false,
       gzipSize: true,
       brotliSize: true,
     }),
@@ -33,8 +42,9 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          react: ["react", "react-dom", "react-dom/client", "scheduler"],
-          router: ["react-router-dom"],
+          preact: ["preact"],
+          "preact-iso": ["preact-iso"],
+          "preact-render-to-string": ["preact-render-to-string"],
         },
       },
     },

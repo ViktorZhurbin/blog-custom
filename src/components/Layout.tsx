@@ -1,5 +1,7 @@
+import { ComponentChildren } from "preact";
+
 interface LayoutProps {
-  children: React.ReactNode;
+  children: ComponentChildren;
 }
 
 export default function Layout({ children }: LayoutProps) {

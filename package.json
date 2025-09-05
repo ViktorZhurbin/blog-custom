@@ -9,39 +9,36 @@
     "build": "npm run build:content && tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "tc": "tsc -b"
   },
   "dependencies": {
-    "@mdx-js/react": "^3.1.1",
     "@mdx-js/rollup": "^3.1.1",
     "@picocss/pico": "^2.1.1",
     "globby": "^14.1.0",
     "gray-matter": "^4.0.3",
-    "react": "^19",
-    "react-dom": "^19",
-    "react-router-dom": "^7.8.2",
+    "preact": "^10.27.1",
+    "preact-iso": "^2.10.0",
+    "preact-render-to-string": "^6.6.1",
     "remark-frontmatter": "^5.0.0",
     "remark-mdx-frontmatter": "^5.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.34.0",
+    "@preact/preset-vite": "^2.10.2",
     "@types/fs-extra": "^11.0.4",
     "@types/mdx": "^2.0.13",
     "@types/node": "^24.3.0",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@types/react-router-dom": "^5.3.3",
-    "@vitejs/plugin-react": "^5.0.0",
     "eslint": "^9.34.0",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.20",
     "fs-extra": "^11.3.1",
     "globals": "^16.3.0",
     "prettier": "3.6.2",
     "rollup-plugin-visualizer": "^6.0.3",
     "tsx": "^4.20.5",
     "typescript": "~5.8.3",
-    "typescript-eslint": "^8.39.1",
     "vite": "^7.1.2"
+  },
+  "eslintConfig": {
+    "extends": "preact"
   }
 }

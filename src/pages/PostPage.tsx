@@ -1,22 +1,21 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 import Layout from "@/components/Layout";
 import postsIndex from "@/generated/posts.json";
+import { ComponentType } from "preact";
+import { useRoute } from "preact-iso";
+import { useEffect, useState } from "preact/hooks";
 
 export default function PostPage() {
-  const { slug } = useParams<{ slug: string }>();
-  const [MDXContent, setMDXContent] = useState<React.ComponentType | null>(
-    null,
-  );
+  const { params } = useRoute();
+  const [MDXContent, setMDXContent] = useState<ComponentType | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const post = postsIndex.find((p) => p.slug === slug);
+  const post = postsIndex.find((p) => p.slug === params.slug);
 
   useEffect(() => {
     if (!post) return;
 
     // Dynamic import of MDX file
-    import(`../../content/posts/${slug}.mdx`)
+    import(`../../content/posts/${params.slug}.mdx`)
       .then((module) => {
         setMDXContent(() => module.default);
         setLoading(false);
@@ -25,7 +24,7 @@ export default function PostPage() {
         console.error("Failed to load post:", err);
         setLoading(false);
       });
-  }, [slug, post]);
+  }, [params.slug, post]);
 
   if (!post) return <div>Post not found</div>;
   if (loading) return <div>Loading...</div>;

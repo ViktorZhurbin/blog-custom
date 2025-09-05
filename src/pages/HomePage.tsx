@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import postsIndex from "@/generated/posts.json";
 
@@ -14,7 +13,7 @@ export default function HomePage() {
           {postsIndex.map((post) => (
             <article key={post.slug}>
               <h3>
-                <Link to={`/posts/${post.slug}`}>{post.title}</Link>
+                <a href={`/posts/${post.slug}`}>{post.title}</a>
               </h3>
               <time>{post.date}</time>
               <div>
