@@ -2,8 +2,8 @@ import mdx from "@mdx-js/rollup";
 import preact from "@preact/preset-vite";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
+import { defineConfig } from "rolldown-vite";
 import { visualizer } from "rollup-plugin-visualizer";
-import { defineConfig } from "vite";
 import { watchContent } from "./plugins/watch-content";
 
 // https://vite.dev/config/
@@ -41,9 +41,11 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          preact: ["preact"],
-          "preact-iso": ["preact-iso"],
+        advancedChunks: {
+          groups: [
+            { name: "preact", test: /\/preact$|\/preact\// },
+            { name: "preact-iso", test: /\/preact-iso$|\/preact-iso\// },
+          ],
         },
       },
     },
