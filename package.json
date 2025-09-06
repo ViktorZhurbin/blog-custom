@@ -13,13 +13,13 @@
   "dependencies": {
     "@mdx-js/rollup": "^3.1.1",
     "@picocss/pico": "^2.1.1",
-    "globby": "^14.1.0",
     "gray-matter": "^4.0.3",
     "preact": "^10.27.1",
     "preact-iso": "^2.10.0",
     "preact-render-to-string": "^6.6.1",
     "remark-frontmatter": "^5.0.0",
-    "remark-mdx-frontmatter": "^5.2.0"
+    "remark-mdx-frontmatter": "^5.2.0",
+    "tinyglobby": "^0.2.15"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.3",

@@ -1,5 +1,5 @@
 import fs from "fs-extra";
-import { globby } from "globby";
+import { glob } from "tinyglobby";
 import matter from "gray-matter";
 import { PATHS, PATTERNS } from "../src/constants.js";
 import { getSlugFromString } from "../src/utils/slug.js";
@@ -13,7 +13,7 @@ export interface Post {
 }
 
 export async function getPosts(): Promise<Post[]> {
-  const files = await globby(PATTERNS.MDX_FILES);
+  const files = await glob(PATTERNS.MDX_FILES);
 
   const posts = files.map((file) => {
     const content = fs.readFileSync(file, "utf8");
