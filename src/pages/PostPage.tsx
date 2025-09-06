@@ -6,15 +6,26 @@ import { useEffect, useState } from "preact/hooks";
 
 export default function PostPage() {
   const { params } = useRoute();
+
+  const [loading, setLoading] = useState(false);
   const [MDXContent, setMDXContent] = useState<ComponentType | null>(null);
-  const [loading, setLoading] = useState(true);
+
+  if (typeof window === "undefined") {
+    const buildTimeMdx = globalThis[params.slug];
+
+    if (buildTimeMdx) {
+      setMDXContent(() => buildTimeMdx);
+    }
+  }
 
   const post = postsIndex.find((p) => p.slug === params.slug);
 
   useEffect(() => {
-    if (!post) return;
+    if (!post || typeof window === "undefined") return;
 
-    // Dynamic import of MDX file
+    setLoading(true);
+
+    // Dynamic import of MDX file in dev (client-side)
     import(`../../content/posts/${params.slug}.mdx`)
       .then((module) => {
         setMDXContent(() => module.default);
@@ -26,7 +37,7 @@ export default function PostPage() {
       });
   }, [params.slug, post]);
 
-  if (!post) return <div>Post not found</div>;
+  if (!post) return <div>Post data not found</div>;
   if (loading) return <div>Loading...</div>;
   if (!MDXContent) return <div>Failed to load post</div>;
 
