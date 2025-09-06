@@ -1,7 +1,7 @@
 export function getSlugFromString(str: string): string {
-  const match = str.match(/\/posts\/([^\/]+)/);
+  const match = str.match(/\/posts\/([^/]+)/);
   if (!match) return "";
-  
+
   // Strip .md or .mdx extension
   return match[1].replace(/\.mdx?$/, "");
 }

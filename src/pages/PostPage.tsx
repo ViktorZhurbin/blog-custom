@@ -1,7 +1,7 @@
+import { useEffect, useState } from "preact/hooks";
+import { useRoute } from "preact-iso";
 import Layout from "@/components/Layout";
 import postsIndex from "@/generated/posts.json";
-import { useRoute } from "preact-iso";
-import { useEffect, useState } from "preact/hooks";
 
 interface PostPageProps {
   hasPrerenderedContent?: boolean;
@@ -64,7 +64,11 @@ function LazyMDXContent({ slug, hasPrerenderedContent }: PostPageProps) {
   }, [slug, hasPrerenderedContent]);
 
   // For SSR with prerendered content, return directly to avoid loading state
-  if (typeof window === "undefined" && hasPrerenderedContent && globalThis[slug]) {
+  if (
+    typeof window === "undefined" &&
+    hasPrerenderedContent &&
+    globalThis[slug]
+  ) {
     const SSRContent = globalThis[slug];
     return <SSRContent />;
   }

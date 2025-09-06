@@ -1,9 +1,9 @@
-import { defineConfig } from "vite";
-import preact from "@preact/preset-vite";
 import mdx from "@mdx-js/rollup";
-import { visualizer } from "rollup-plugin-visualizer";
+import preact from "@preact/preset-vite";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
+import { visualizer } from "rollup-plugin-visualizer";
+import { defineConfig } from "vite";
 import { watchContent } from "./plugins/watch-content";
 
 // https://vite.dev/config/

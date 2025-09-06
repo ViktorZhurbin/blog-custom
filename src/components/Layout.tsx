@@ -1,4 +1,4 @@
-import { ComponentChildren } from "preact";
+import type { ComponentChildren } from "preact";
 
 interface LayoutProps {
   children: ComponentChildren;
@@ -16,6 +16,7 @@ export default function Layout({ children }: LayoutProps) {
         <ul>
           <li>
             <button
+              type="button"
               onClick={() => {
                 const theme =
                   document.documentElement.getAttribute("data-theme");

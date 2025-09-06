@@ -1,6 +1,6 @@
 import type { Plugin } from "vite";
 import { generatePostsIndex } from "../scripts/build-content.js";
-import { PATTERNS, COLORS } from "../src/constants.js";
+import { COLORS, PATTERNS } from "../src/constants.js";
 
 export function watchContent(): Plugin {
   return {

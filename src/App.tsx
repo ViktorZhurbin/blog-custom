@@ -1,4 +1,4 @@
-import { LocationProvider, Router, Route } from "preact-iso";
+import { LocationProvider, Route, Router } from "preact-iso";
 
 import HomePage from "./pages/HomePage";
 import PostPage from "./pages/PostPage";

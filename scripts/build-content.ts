@@ -1,6 +1,6 @@
+import fs from "fs-extra";
 import { globby } from "globby";
 import matter from "gray-matter";
-import fs from "fs-extra";
 import { PATHS, PATTERNS } from "../src/constants.js";
 import { getSlugFromString } from "../src/utils/slug.js";
 
