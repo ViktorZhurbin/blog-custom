@@ -1,13 +1,16 @@
 import fs from "fs-extra";
 import { glob } from "tinyglobby";
-import matter from "gray-matter";
+import fm from "front-matter";
 import { PATHS, PATTERNS } from "../src/constants.js";
 import { getSlugFromString } from "../src/utils/slug.js";
 
-export interface Post {
-  title: string;
+interface Frontmatter {
+    title: string;
   date: string;
   tags: string[];
+}
+
+export interface Post extends Frontmatter {
   slug: string;
   filepath: string;
 }
@@ -17,12 +20,12 @@ export async function getPosts(): Promise<Post[]> {
 
   const posts = files.map((file) => {
     const content = fs.readFileSync(file, "utf8");
-    const { data } = matter(content);
+    const { attributes } = fm<Frontmatter>(content);
 
     return {
-      title: data.title,
-      date: data.date,
-      tags: data.tags || [],
+      title: attributes.title,
+      date: attributes.date,
+      tags: attributes.tags || [],
       slug: getSlugFromString(file),
       filepath: file,
     };

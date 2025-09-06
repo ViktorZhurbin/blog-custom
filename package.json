@@ -13,10 +13,8 @@
   "dependencies": {
     "@mdx-js/rollup": "^3.1.1",
     "@picocss/pico": "^2.1.1",
-    "gray-matter": "^4.0.3",
     "preact": "^10.27.1",
     "preact-iso": "^2.10.0",
-    "preact-render-to-string": "^6.6.1",
     "remark-frontmatter": "^5.0.0",
     "remark-mdx-frontmatter": "^5.2.0",
     "tinyglobby": "^0.2.15"
@@ -27,6 +25,7 @@
     "@types/fs-extra": "^11.0.4",
     "@types/mdx": "^2.0.13",
     "@types/node": "^24.3.0",
+    "front-matter": "^4.0.2",
     "fs-extra": "^11.3.1",
     "globals": "^16.3.0",
     "rollup-plugin-visualizer": "^6.0.3",
