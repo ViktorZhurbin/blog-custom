@@ -39,21 +39,19 @@ export default function PostPage({ hasPrerenderedContent }: PostPageProps) {
 }
 
 function LazyMDXContent({ slug, hasPrerenderedContent }: PostPageProps) {
-  // For SSR, render content directly without state
-  if (
-    typeof window === "undefined" &&
-    hasPrerenderedContent &&
-    globalThis[slug]
-  ) {
-    const MDXContent = globalThis[slug];
-    return <MDXContent />;
-  }
-
-  // For client-side, use state management
+  // Always call hooks first - never conditionally
   const [MDXContent, setMDXContent] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Check for prerendered content first
+    if (hasPrerenderedContent && globalThis[slug]) {
+      setMDXContent(() => globalThis[slug]);
+      setLoading(false);
+      return;
+    }
+
+    // Fallback to dynamic import
     import(`../../content/posts/${slug}.mdx`)
       .then((module) => {
         setMDXContent(() => module.default);
@@ -63,7 +61,13 @@ function LazyMDXContent({ slug, hasPrerenderedContent }: PostPageProps) {
         console.error("Failed to load post:", err);
         setLoading(false);
       });
-  }, [slug]);
+  }, [slug, hasPrerenderedContent]);
+
+  // For SSR with prerendered content, return directly to avoid loading state
+  if (typeof window === "undefined" && hasPrerenderedContent && globalThis[slug]) {
+    const SSRContent = globalThis[slug];
+    return <SSRContent />;
+  }
 
   if (loading) return <div>Loading post content...</div>;
   if (!MDXContent) return <div>Failed to load post</div>;
