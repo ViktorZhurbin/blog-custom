@@ -1,8 +1,8 @@
 import { globby } from "globby";
 import matter from "gray-matter";
 import fs from "fs-extra";
-import path from "path";
 import { PATHS, PATTERNS } from "../src/constants.js";
+import { getSlugFromString } from "../src/utils/slug.js";
 
 export interface Post {
   title: string;
@@ -23,7 +23,7 @@ export async function getPosts(): Promise<Post[]> {
       title: data.title,
       date: data.date,
       tags: data.tags || [],
-      slug: path.basename(file, ".mdx"),
+      slug: getSlugFromString(file),
       filepath: file,
     };
   });

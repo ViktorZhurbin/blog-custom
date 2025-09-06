@@ -1,5 +1,6 @@
 import Layout from "@/components/Layout";
 import postsIndex from "@/generated/posts.json";
+import { createPostUrl } from "@/utils/slug";
 
 export default function HomePage() {
   return (
@@ -13,7 +14,7 @@ export default function HomePage() {
           {postsIndex.map((post) => (
             <article key={post.slug}>
               <h3>
-                <a href={`/posts/${post.slug}`}>{post.title}</a>
+                <a href={createPostUrl(post.slug)}>{post.title}</a>
               </h3>
               <time>{post.date}</time>
               <div>

@@ -3,35 +3,6 @@ import postsIndex from "@/generated/posts.json";
 import { useRoute } from "preact-iso";
 import { useEffect, useState } from "preact/hooks";
 
-function LazyMDXContent({ slug, hasPrerenderedContent }) {
-  // For SSR, render content directly without state
-  if (typeof window === "undefined" && hasPrerenderedContent && globalThis[slug]) {
-    const MDXContent = globalThis[slug];
-    return <MDXContent />;
-  }
-
-  // For client-side, use state management
-  const [MDXContent, setMDXContent] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    import(`../../content/posts/${slug}.mdx`)
-      .then((module) => {
-        setMDXContent(() => module.default);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Failed to load post:", err);
-        setLoading(false);
-      });
-  }, [slug]);
-
-  if (loading) return <div>Loading post content...</div>;
-  if (!MDXContent) return <div>Failed to load post</div>;
-
-  return <MDXContent />;
-}
-
 interface PostPageProps {
   hasPrerenderedContent?: boolean;
   slug?: string;
@@ -58,8 +29,44 @@ export default function PostPage({ hasPrerenderedContent }: PostPageProps) {
             ))}
           </div>
         </header>
-        <LazyMDXContent slug={params.slug} hasPrerenderedContent={hasPrerenderedContent} />
+        <LazyMDXContent
+          slug={params.slug}
+          hasPrerenderedContent={hasPrerenderedContent}
+        />
       </article>
     </Layout>
   );
+}
+
+function LazyMDXContent({ slug, hasPrerenderedContent }: PostPageProps) {
+  // For SSR, render content directly without state
+  if (
+    typeof window === "undefined" &&
+    hasPrerenderedContent &&
+    globalThis[slug]
+  ) {
+    const MDXContent = globalThis[slug];
+    return <MDXContent />;
+  }
+
+  // For client-side, use state management
+  const [MDXContent, setMDXContent] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    import(`../../content/posts/${slug}.mdx`)
+      .then((module) => {
+        setMDXContent(() => module.default);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to load post:", err);
+        setLoading(false);
+      });
+  }, [slug]);
+
+  if (loading) return <div>Loading post content...</div>;
+  if (!MDXContent) return <div>Failed to load post</div>;
+
+  return <MDXContent />;
 }

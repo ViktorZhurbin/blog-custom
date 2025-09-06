@@ -2,6 +2,7 @@ import { hydrate, prerender as ssr } from "preact-iso";
 import postsIndex from "@/generated/posts.json";
 
 import App, { type AppProps } from "./App";
+import { getSlugFromString } from "./utils/slug";
 
 interface PrerenderData {
   ssr: boolean;
@@ -18,7 +19,7 @@ export async function prerender(data: PrerenderData) {
 
   // For post pages, dynamically import the content
   if (data.url?.startsWith("/posts/")) {
-    const slug = data.url.split("/")[2];
+    const slug = getSlugFromString(data.url);
     const post = postsIndex.find((p) => p.slug === slug);
 
     if (post) {
