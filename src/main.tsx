@@ -1,13 +1,21 @@
 import { hydrate, prerender as ssr } from "preact-iso";
 import postsIndex from "@/generated/posts.json";
 
-import App from "./App";
+import App, { type AppProps } from "./App";
+
+interface PrerenderData {
+  ssr: boolean;
+  url?: string;
+  route?: { url: string; _discoveredBy?: { url: string } };
+}
 
 if (typeof window !== "undefined") {
   hydrate(<App />, document.getElementById("app"));
 }
 
-export async function prerender(data) {
+export async function prerender(data: PrerenderData) {
+  const props: AppProps = {};
+
   // For post pages, dynamically import the content
   if (data.url?.startsWith("/posts/")) {
     const slug = data.url.split("/")[2];
@@ -18,10 +26,12 @@ export async function prerender(data) {
         `../content/posts/${slug}.mdx`
       );
 
-      // Pass the component via globalThis or data
+      // Store component in globalThis for SSR, but mark it as available
       globalThis[slug] = MDXContent;
+      props.hasPrerenderedContent = true;
+      props.slug = slug;
     }
   }
 
-  return await ssr(<App {...data} />);
+  return await ssr(<App {...props} />);
 }

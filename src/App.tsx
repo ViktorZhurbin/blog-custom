@@ -3,12 +3,20 @@ import { LocationProvider, Router, Route } from "preact-iso";
 import HomePage from "./pages/HomePage";
 import PostPage from "./pages/PostPage";
 
-function App() {
+export interface AppProps {
+  hasPrerenderedContent?: boolean;
+  slug?: string;
+}
+
+function App(props: AppProps) {
   return (
     <LocationProvider>
       <Router>
         <Route path="/" component={HomePage} />
-        <Route path="/posts/:slug" component={PostPage} />
+        <Route
+          path="/posts/:slug"
+          component={(routeProps) => <PostPage {...routeProps} {...props} />}
+        />
         <Route default component={() => <div>404</div>} />
       </Router>
     </LocationProvider>
