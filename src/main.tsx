@@ -4,6 +4,9 @@ import postsIndex from "@/generated/posts.json";
 import App, { type AppProps } from "./App";
 import { getSlugFromString } from "./utils/slug";
 
+// Import custom Pico CSS
+import "./styles/pico.scss";
+
 interface PrerenderData {
   ssr: boolean;
   url?: string;

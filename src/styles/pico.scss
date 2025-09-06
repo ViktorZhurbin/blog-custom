@@ -1,0 +1,13 @@
+// Custom Pico CSS configuration
+// Import Pico with customizations
+// https://picocss.com/docs/sass#settings
+@use "@picocss/pico/scss/pico" with (
+  // Enable semantic container for better layout
+  $enable-semantic-container: true,
+
+  // You can customize theme colors here later
+  $theme-color: "indigo", // Options: azure, blue, cyan, fuchsia, green, indigo, lime, orange, pink, purple, red, violet, yellow, zinc
+);
+
+// Your custom styles can go here
+// This keeps them separate from Pico's core
